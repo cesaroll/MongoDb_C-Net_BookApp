@@ -1,7 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.IO;
 using System.Linq;
+using System.Runtime.InteropServices;
 using MongoDB.Bson.Serialization.Serializers;
 using MongoDB.Driver;
 using MongoDB.Driver.Linq;
@@ -18,6 +20,9 @@ namespace BookApp
             var books = new List<Book>();
 
             Console.WriteLine("Loading Books ...");
+
+            var stopWatch = new Stopwatch();
+            stopWatch.Start();
             
             foreach (var item in GetBookData())
             {
@@ -60,7 +65,10 @@ namespace BookApp
                 books = null;
             }
 
+            stopWatch.Stop();
+
             Console.WriteLine("Finished!");
+            Console.WriteLine("Time elapsed: {0}", stopWatch.Elapsed);
             
 
             // Read some
