@@ -1,10 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
-using System.Runtime.InteropServices.ComTypes;
-using System.Text;
-using System.Threading.Tasks;
-using MongoDB.Driver;
 
 namespace BookApp
 {
@@ -13,20 +10,40 @@ namespace BookApp
         static void Main(string[] args)
         {
             var bookCtx = new BookContext();
+            long count = 0;
 
-            Console.WriteLine("Insert next number: ");
-            var num = Console.ReadLine();
+            Console.WriteLine("Loading Books ...");
 
-            var book = new Book()
+            foreach (var item in GetBookData())
             {
-                Title = "MongoDB for C# Developers Vol " + num,
-                ISBN = "123456789" + num+num+num+num,
-                Publisher = "DevelopMentor"
-            };
+                var book = new Book()
+                {
+                    ISBN = item[0],
+                    Title = item[1],
+                    Author = item[2],
+                    PublicationYear = int.Parse(item[3]),
+                    Publisher = item[4],
+                    ImageUrlSmall = item[5],
+                    ImageUrlMedium = item[6],
+                    ImageUrlLarge = item[7],
+                };
 
-            bookCtx.Books.InsertOne(book);
+                bookCtx.Books.InsertOne(book);
+                count++;
 
-            book = bookCtx.Books.AsQueryable().FirstOrDefault();
+                Console.WriteLine("{0,-10} - {1}", count,book.Title);
+            }
+
+            Console.WriteLine("Finished!");
+            
         }
+
+        public static IEnumerable<string[]> GetBookData()
+        {
+            string filename = @"D:\Temp\BX-CSV-Dump\BX-Books.csv";
+            var bookLines = File.ReadLines(filename).Take(100);
+            return bookLines.Skip(1).Select(s => s.Replace("\"", "").Replace("&amp;", "&").Split(';'));
+        }
+
     }
 }
