@@ -2,6 +2,9 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using MongoDB.Bson.Serialization.Serializers;
+using MongoDB.Driver;
+using MongoDB.Driver.Linq;
 
 namespace BookApp
 {
@@ -13,7 +16,7 @@ namespace BookApp
             long count = 0;
 
             Console.WriteLine("Loading Books ...");
-
+            /*
             foreach (var item in GetBookData())
             {
                 var book = new Book()
@@ -33,9 +36,17 @@ namespace BookApp
 
                 Console.WriteLine("{0,-10} - {1}", count,book.Title);
             }
-
-            Console.WriteLine("Finished!");
             
+            Console.WriteLine("Finished!");
+            */
+
+            // Read some
+
+            var books = Queryable.Where(bookCtx.Books.AsQueryable(), b => b.PageCount > 50);
+            Console.WriteLine("Books with more than 50 pages: {0}", books.Count());
+            Console.WriteLine("First One: {0}", books.FirstOrDefault().Title);
+            Console.ReadKey();
+
         }
 
         public static IEnumerable<string[]> GetBookData()
