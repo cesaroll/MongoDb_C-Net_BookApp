@@ -12,13 +12,23 @@ namespace BookApp
 
         public BookContext()
         {
+            //var connectionString = "mongodb://192.168.187.137:27020";
+            //var connectionString = "mongodb://192.168.187.137:27017";
+            //var connectionString = "mongodb://192.168.187.137:27017/admin";
 
-            //client = new MongoClient("mongodb://192.168.187.130:27020");
+            //Connecting to local
+            client = new MongoClient();
             
+
+            /*
             var settings = new MongoClientSettings();
-            settings.Server = new MongoServerAddress("192.168.187.130", 27020);
+            settings.Server = new MongoServerAddress("MONGODB", 27017);
+
+            var credential = MongoCredential.CreateMongoCRCredential("admin", "myAdmin", "password");
+
+            settings.Credentials = new[] {credential};
             
-            client = new MongoClient(settings);
+            client = new MongoClient(settings);*/
 
             this.db = client.GetDatabase("bookStore");
             
@@ -26,7 +36,7 @@ namespace BookApp
 
         public IMongoCollection<Book> Books
         {
-            get { return db.GetCollection<Book>("Book"); }
+            get { return db.GetCollection<Book>("Books"); }
         }
     }
 }
