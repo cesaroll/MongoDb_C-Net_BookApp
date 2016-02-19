@@ -53,6 +53,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="GenerateNewBooks.cs" />
+    <Compile Include="GenerateAuthors.cs" />
     <Compile Include="Start.cs" />
     <Compile Include="Queries.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

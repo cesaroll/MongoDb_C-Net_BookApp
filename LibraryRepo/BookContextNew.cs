@@ -6,12 +6,12 @@ using MongoDB;
 
 namespace BookApp
 {
-    public class BookContext
+    public class BookContextNew
     {
         private IMongoClient client { get; set; }
         private IMongoDatabase db { get; set; }
 
-        public BookContext(IMongoClient mc)
+        public BookContextNew(IMongoClient mc)
         {
             //Connecting to local
             client = mc;
@@ -22,12 +22,12 @@ namespace BookApp
 
         public IMongoCollection<Book> Books
         {
-            get { return db.GetCollection<Book>("Books"); }
+            get { return db.GetCollection<Book>("BooksNew"); }
         }
 
         public IQueryable<Book> QBooks
         {
-            get { return db.GetCollection<Book>("Books").AsQueryable(); }
+            get { return db.GetCollection<Book>("BooksNew").AsQueryable(); }
         }
 
     }
