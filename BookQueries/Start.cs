@@ -8,10 +8,10 @@ namespace BookQueries
     {
         static void Main(string[] args)
         {
-            /*
+            
             var mongoClient = new MongoClient();
             var bookCtx = new BookContext(mongoClient);
-            
+            /*
             var query = new Queries(bookCtx);
 
             query.DisplayTotal();
@@ -24,8 +24,9 @@ namespace BookQueries
             genAuth.StartGeneration();
 
             var bookCtxNew = new BookContextNew(mongoClient);
+             * */
             var authCtx = new AuthorContext(mongoClient);
-
+            /*
             var genNewBooks = new GenerateNewBooks(bookCtxNew, authCtx, bookCtx);
             genNewBooks.StartGeneration();
             */
@@ -35,7 +36,6 @@ namespace BookQueries
             var genNewBooks = new PGenerateNewBooks();
             genNewBooks.StartGenerationParallel();
              * */
-
 
 
 
